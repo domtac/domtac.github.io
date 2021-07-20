@@ -28,8 +28,104 @@ On starting the application by typing '<i>yarn start</i>' you should see somethi
   <div style="text-align: left;"><br /></div><div style="text-align: left;">You shall be able to set up a Hello world project, which will open an alert window on calling greet from your electron app.<br /></div></div><div style="text-align: left;">
 <pre><code>wasm-pack new simple_webassembly
 </code></pre>
-For this demo, I just ran that command inside the src folder of the electron app.</div><div style="text-align: left;">Calling <pre><code class="sh">wasm-pack build</code></pre> in the <i>simple_webassembly</i> folder will generate your webassemlbly into the <i>pkg</i> folder.</div><div style="text-align: left;">&nbsp;</div><div style="text-align: left;"><h2 style="text-align: left;">Adding webassembly to your electron app&nbsp;</h2><div style="text-align: left;">Before you can run wasm in your app you need to enable that. First you need to install it via yarn:</div><div style="text-align: left;">&nbsp;</div><div style="text-align: left;"><pre><code class="sh">yarn add webassembly
-yarn install</code></pre></div><div style="text-align: left;"><br /></div><div style="text-align: left;">Secondly you need add webassembly as an experimental feature to your webpack config as a <a href="https://webpack.js.org/migrate/5/#clean-up-configuration" target="_blank">breaking change has been introduced between v4 and v5</a>.</div><div style="text-align: left;">In order to activate this feature add this line:</div><div style="text-align: left;"><div style="background-color: #1e1e1e; color: #d4d4d4; font-family: &quot;Droid Sans Mono&quot;, monospace, monospace, &quot;Droid Sans Fallback&quot;; font-size: 14px; font-weight: normal; line-height: 19px; white-space: pre;"><div><span style="color: #9cdcfe;">experiments:</span><span style="color: #d4d4d4;"> {</span></div><div><span style="color: #d4d4d4;">    </span><span style="color: #9cdcfe;">asyncWebAssembly:</span><span style="color: #d4d4d4;"> </span><span style="color: #569cd6;">true</span></div><div><span style="color: #d4d4d4;">  },</span></div></div></div></div><p>
+For this demo, I just ran that command inside the src folder of the electron app.</div><div style="text-align: left;">Calling <pre><code class="sh">wasm-pack build</code></pre> in the <i>simple_webassembly</i> folder will generate your webassemlbly into the <i>pkg</i> folder.</div><div style="text-align: left;">&nbsp;</div><div style="text-align: left;"><h2 style="text-align: left;">Adding webassembly to your electron app
+
+Before you can run wasm in your app you need to enable that. First you need to install it via yarn:
+
+```sh
+yarn add webassembly
+yarn install
+```
+
+Secondly you need to add webassembly as an experimental feature to your webpack config as a [breaking change has been introduced between v4 and v5](https://webpack.js.org/migrate/5/#clean-up-configuration).
+
+In order to activate this feature add this line:<
+
+```js
+experiments: {
+    asyncWebAssembly: true
+  },
+```
 
 
-</p><p>to .erb/configs/webpack.config.base.js.</p><p>Now we're set up to finally combine our app and our webassembly.</p><p>To verify that your webassembly works, just paste following code into src/App.tsx:</p><div style="background-color: #1e1e1e; color: #d4d4d4; font-family: &quot;Droid Sans Mono&quot;, monospace, monospace, &quot;Droid Sans Fallback&quot;; font-size: 14px; font-weight: normal; line-height: 19px; white-space: pre;"><div style="background-color: #1e1e1e; color: #d4d4d4; font-family: &quot;Droid Sans Mono&quot;, monospace, monospace, &quot;Droid Sans Fallback&quot;; font-size: 14px; font-weight: normal; line-height: 19px; white-space: pre;"><div><span style="color: #c586c0;">import</span><span style="color: #d4d4d4;"> </span><span style="color: #9cdcfe;">React</span><span style="color: #d4d4d4;">, { </span><span style="color: #9cdcfe;">useEffect</span><span style="color: #d4d4d4;"> } </span><span style="color: #c586c0;">from</span><span style="color: #d4d4d4;"> </span><span style="color: #ce9178;">'react'</span><span style="color: #d4d4d4;">;</span></div><div><span style="color: #c586c0;">import</span><span style="color: #d4d4d4;"> { </span><span style="color: #9cdcfe;">BrowserRouter</span><span style="color: #d4d4d4;"> </span><span style="color: #c586c0;">as</span><span style="color: #d4d4d4;"> </span><span style="color: #9cdcfe;">Router</span><span style="color: #d4d4d4;">, </span><span style="color: #9cdcfe;">Switch</span><span style="color: #d4d4d4;">, </span><span style="color: #9cdcfe;">Route</span><span style="color: #d4d4d4;"> } </span><span style="color: #c586c0;">from</span><span style="color: #d4d4d4;"> </span><span style="color: #ce9178;">'react-router-dom'</span><span style="color: #d4d4d4;">;</span></div><div><span style="color: #c586c0;">import</span><span style="color: #d4d4d4;"> </span><span style="color: #9cdcfe;">icon</span><span style="color: #d4d4d4;"> </span><span style="color: #c586c0;">from</span><span style="color: #d4d4d4;"> </span><span style="color: #ce9178;">'../assets/icon.png'</span><span style="color: #d4d4d4;">;</span></div><div><span style="color: #c586c0;">import</span><span style="color: #d4d4d4;"> </span><span style="color: #ce9178;">'./App.global.css'</span><span style="color: #d4d4d4;">;</span></div><br /><br /><div><span style="color: #569cd6;">const</span><span style="color: #d4d4d4;"> </span><span style="color: #dcdcaa;">Hello</span><span style="color: #d4d4d4;"> = () </span><span style="color: #569cd6;">=&gt;</span><span style="color: #d4d4d4;"> {</span></div><div><span style="color: #d4d4d4;">  </span><span style="color: #c586c0;">return</span><span style="color: #d4d4d4;"> (</span></div><div><span style="color: #d4d4d4;">    </span><span style="color: grey;">&lt;</span><span style="color: #569cd6;">div</span><span style="color: grey;">&gt;</span></div><div><span style="color: #d4d4d4;">      </span><span style="color: grey;">&lt;</span><span style="color: #569cd6;">div</span><span style="color: #d4d4d4;"> </span><span style="color: #9cdcfe;">className</span><span style="color: #d4d4d4;">=</span><span style="color: #ce9178;">"Hello"</span><span style="color: grey;">&gt;</span></div><div><span style="color: #d4d4d4;">        </span><span style="color: grey;">&lt;</span><span style="color: #569cd6;">img</span><span style="color: #d4d4d4;"> </span><span style="color: #9cdcfe;">width</span><span style="color: #d4d4d4;">=</span><span style="color: #ce9178;">"400px"</span><span style="color: #d4d4d4;"> </span><span style="color: #9cdcfe;">alt</span><span style="color: #d4d4d4;">=</span><span style="color: #ce9178;">"icon"</span><span style="color: #d4d4d4;"> </span><span style="color: #9cdcfe;">src</span><span style="color: #d4d4d4;">=</span><span style="color: #569cd6;">{</span><span style="color: #4fc1ff;">icon</span><span style="color: #569cd6;">}</span><span style="color: #d4d4d4;"> </span><span style="color: grey;">/&gt;</span></div><div><span style="color: #d4d4d4;">      </span><span style="color: grey;">&lt;/</span><span style="color: #569cd6;">div</span><span style="color: grey;">&gt;</span></div><div><span style="color: #d4d4d4;">      </span><span style="color: grey;">&lt;</span><span style="color: #569cd6;">h1</span><span style="color: grey;">&gt;</span><span style="color: #d4d4d4;">electron-meets-rust-webassembly</span><span style="color: grey;">&lt;/</span><span style="color: #569cd6;">h1</span><span style="color: grey;">&gt;</span></div><div><span style="color: #d4d4d4;">    </span><span style="color: grey;">&lt;/</span><span style="color: #569cd6;">div</span><span style="color: grey;">&gt;</span></div><div><span style="color: #d4d4d4;">  );</span></div><div><span style="color: #d4d4d4;">};</span></div><br /><div><span style="color: #c586c0;">export</span><span style="color: #d4d4d4;"> </span><span style="color: #c586c0;">default</span><span style="color: #d4d4d4;"> </span><span style="color: #569cd6;">function</span><span style="color: #d4d4d4;"> </span><span style="color: #dcdcaa;">App</span><span style="color: #d4d4d4;">() {</span></div><div><span style="color: #d4d4d4;">  </span><span style="color: #dcdcaa;">useEffect</span><span style="color: #d4d4d4;">(() </span><span style="color: #569cd6;">=&gt;</span><span style="color: #d4d4d4;"> {</span></div><div><span style="color: #d4d4d4;">    </span><span style="color: #569cd6;">import</span><span style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'./simple-webassembly/pkg/simple_webassembly'</span><span style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">then</span><span style="color: #d4d4d4;">((</span><span style="color: #9cdcfe;">module</span><span style="color: #d4d4d4;">) </span><span style="color: #569cd6;">=&gt;</span></div><div><span style="color: #d4d4d4;">    </span><span style="color: #9cdcfe;">module</span><span style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">greet</span><span style="color: #d4d4d4;">());</span></div><div><span style="color: #d4d4d4;">  }</span></div><div><span style="color: #d4d4d4;">  );</span></div><div><span style="color: #d4d4d4;">  </span><span style="color: #c586c0;">return</span><span style="color: #d4d4d4;"> (</span></div><div><span style="color: #d4d4d4;">    </span><span style="color: grey;">&lt;</span><span style="color: #4ec9b0;">Router</span><span style="color: grey;">&gt;</span></div><div><span style="color: #d4d4d4;">      </span><span style="color: grey;">&lt;</span><span style="color: #4ec9b0;">Switch</span><span style="color: grey;">&gt;</span></div><div><span style="color: #d4d4d4;">        </span><span style="color: grey;">&lt;</span><span style="color: #4ec9b0;">Route</span><span style="color: #d4d4d4;"> </span><span style="color: #9cdcfe;">path</span><span style="color: #d4d4d4;">=</span><span style="color: #ce9178;">"/"</span><span style="color: #d4d4d4;"> </span><span style="color: #9cdcfe;">component</span><span style="color: #d4d4d4;">=</span><span style="color: #569cd6;">{</span><span style="color: #dcdcaa;">Hello</span><span style="color: #569cd6;">}</span><span style="color: #d4d4d4;"> </span><span style="color: grey;">/&gt;</span></div><div><span style="color: #d4d4d4;">      </span><span style="color: grey;">&lt;/</span><span style="color: #4ec9b0;">Switch</span><span style="color: grey;">&gt;</span></div><div><span style="color: #d4d4d4;">    </span><span style="color: grey;">&lt;/</span><span style="color: #4ec9b0;">Router</span><span style="color: grey;">&gt;</span></div><div><span style="color: #d4d4d4;">  );</span></div><div><span style="color: #d4d4d4;">}</span></div></div></div><p><br /></p><p>One last time 'yarn start' and enjoy the profit:</p><div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-fRwJkuzmInk/YPX3kX9NXnI/AAAAAAAACYk/imQeK8CUcbU-hfSN2FkAMFpA2mFLbwztwCLcBGAsYHQ/s818/ElectronWebassemblyFerris.bmp" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="569" data-original-width="818" height="332" src="https://1.bp.blogspot.com/-fRwJkuzmInk/YPX3kX9NXnI/AAAAAAAACYk/imQeK8CUcbU-hfSN2FkAMFpA2mFLbwztwCLcBGAsYHQ/w553-h332/ElectronWebassemblyFerris.bmp" width="553" /></a></div><h1 style="text-align: left;">Conclusion</h1><div style="text-align: left;">Following the above mentioned steps you shall be ready and set to get your rust code running in your electron app. As easy as setting up the the webassembly using wasm-pack was, the process of loading it into electron was somehow counter-intuitive and required some tinkering.&nbsp;</div><div style="text-align: left;">As a next step I will try to get some performance insights comparing nativ code and webassembly. <br /></div><p><br /></p><p></p>
+to .erb/configs/webpack.config.base.js.    
+
+Now we're set up to finally combine our app and our webassembly.    
+To verify that your webassembly works, just paste following code into src/App.tsx:
+
+
+```js
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import icon from '../assets/icon.png';
+import './App.global.css';
+
+
+const Hello = () => {
+  return (
+    <div>
+      <div className="Hello">
+        <img width="400px" alt="icon" src={icon} />
+      </div>
+      <h1>electron-meets-rust-webassembly</h1>
+    </div>
+  );
+};
+
+export default function App() {
+  useEffect(() => {
+    import('./simple-webassembly/pkg/simple_webassembly').then((module) =>
+    module.greet());
+  }
+  );
+  return (
+    <Router>
+      <Switch>
+        <Route path="/" component={Hello} />
+      </Switch>
+    </Router>
+  );
+}
+```
+{% highlight js %}
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import icon from '../assets/icon.png';
+import './App.global.css';
+
+
+const Hello = () => {
+  return (
+    <div>
+      <div className="Hello">
+        <img width="400px" alt="icon" src={icon} />
+      </div>
+      <h1>electron-meets-rust-webassembly</h1>
+    </div>
+  );
+};
+
+export default function App() {
+  useEffect(() => {
+    import('./simple-webassembly/pkg/simple_webassembly').then((module) =>
+    module.greet());
+  }
+  );
+  return (
+    <Router>
+      <Switch>
+        <Route path="/" component={Hello} />
+      </Switch>
+    </Router>
+  );
+}
+{% endhighlight %}
+
+One last time `yarn start` and enjoy the profit:
+
+![](https://1.bp.blogspot.com/-fRwJkuzmInk/YPX3kX9NXnI/AAAAAAAACYk/imQeK8CUcbU-hfSN2FkAMFpA2mFLbwztwCLcBGAsYHQ/s818/ElectronWebassemblyFerris.bmp)
+
+## Conclusion
+Following the above mentioned steps you shall be ready and set to get your rust code running in your electron app. As easy as setting up the the webassembly using wasm-pack was, the process of loading it into electron was somehow counter-intuitive and required some tinkering.
+
+As a next step I will try to get some performance insights comparing nativ code and webassembly. 
