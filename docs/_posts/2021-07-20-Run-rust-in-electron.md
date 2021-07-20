@@ -5,15 +5,26 @@ date:   2021-07-20 13:55:38 +0200
 categories: rust webassembly electron
 ---
 
-![](https://1.bp.blogspot.com/-K3BxK5hXTiY/YPX4gfW1vII/AAAAAAAACYs/4MBWS2hWWc4ocaTzW33gdptdZI6IlU6MwCLcBGAsYHQ/s2048/wasm-ferris.png){:height="50%" width="50%"}
+![](https://1.bp.blogspot.com/-K3BxK5hXTiY/YPX4gfW1vII/AAAAAAAACYs/4MBWS2hWWc4ocaTzW33gdptdZI6IlU6MwCLcBGAsYHQ/s2048/wasm-ferris.png){:height="70%" width="70%"}
+
+## Quick start
+
+If you want to start exploring rust and electron, just create a project from my [fork](https://github.com/domtac/electron-react-boilerplate) of the electron_boiler_plate project by clicking   
+![](../assets/UseThisTemplate.png)
 
 
+
+____
+
+## Why
 
 On tinkering with electron to get a grasp on that technology, my first attempt was how to move the logic part to rust. Using webassembly (wasm) was my first choice, so after a quick web search I stumbled across this [post](https://blog.logrocket.com/supercharge-your-electron-apps-with-rust/) by Anshul Goyal.    
 Though it helped me by pointing out the used basic technologies I still needed quite some time to get it running, partly because there has been a breaking change and partly because the blog post skipped some steps and was missing a github repo to look up the missing information. On getting it to run on my side I was reminded of the "How to draw an owl" meme ([reddit](https://www.reddit.com/r/WebAssembly/comments/6tj8pl/how_can_i_get_wasm_to_run_in_electron_is_there_a/)):       
 ![](https://external-preview.redd.it/DodWFQ9mQkVyWoKFa0ZIu12PYrPo3P2T0taaK-lgJCo.png?auto=webp&amp;s=c180684f48b01ff6f2cbc72e080067039943de07)
 
 So I decided to add a step-by-step guide. I will not go deep into details and focusing more on a reproducible guide to follow through.
+
+
 ## Prerequisites
 To follow on with the next steps you'll need to have [rust](https://www.rust-lang.org/tools/install) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed. This is how you check your versions plus the versions used on creating this post:     
 
@@ -73,6 +84,7 @@ Before you can run wasm in your app you need to enable that. First you need to i
 ```sh
 yarn add webassembly
 yarn install
+yarn upgrade
 ```
 
 Secondly you need to add webassembly as an experimental feature to your webpack config as a [breaking change has been introduced between v4 and v5](https://webpack.js.org/migrate/5/#clean-up-configuration).
@@ -132,3 +144,4 @@ One last time `yarn start` and enjoy the profit:
 Following the above mentioned steps you shall be ready and set to get your rust code running in your electron app. As easy as setting up the the webassembly using wasm-pack was, the process of loading it into electron was somehow counter-intuitive and required some tinkering.
 
 As a next step I will try to get some performance insights comparing native code and webassembly. 
+
