@@ -5,12 +5,12 @@ date:   2021-07-20 13:55:38 +0200
 categories: rust webassembly electron
 ---
 
-![](https://1.bp.blogspot.com/-K3BxK5hXTiY/YPX4gfW1vII/AAAAAAAACYs/4MBWS2hWWc4ocaTzW33gdptdZI6IlU6MwCLcBGAsYHQ/s2048/wasm-ferris.png)
+![](https://1.bp.blogspot.com/-K3BxK5hXTiY/YPX4gfW1vII/AAAAAAAACYs/4MBWS2hWWc4ocaTzW33gdptdZI6IlU6MwCLcBGAsYHQ/s2048/wasm-ferris.png){:height="50%" width="50%"}
 
 
 
-On tinkering with electron to get a grasp on that technology, my first attempt was how to move the logic part to rust and leave the presentation layer to electron. Using webassembly (wasm) was my first choice, so after a quick web search I stumbled across this [post](https://blog.logrocket.com/supercharge-your-electron-apps-with-rust/) by Anshul Goyal.    
-Though it helped me by pointing out the used basic technologies I still needed quite some time to get it running, partly because there has been a breaking change and partly because the blog post skipped some steps and was missing a github repo to look up the missing information. On getting it to run on my side I was reminded of the"How to draw an owl" meme ([reddit](https://www.reddit.com/r/WebAssembly/comments/6tj8pl/how_can_i_get_wasm_to_run_in_electron_is_there_a/)):       
+On tinkering with electron to get a grasp on that technology, my first attempt was how to move the logic part to rust. Using webassembly (wasm) was my first choice, so after a quick web search I stumbled across this [post](https://blog.logrocket.com/supercharge-your-electron-apps-with-rust/) by Anshul Goyal.    
+Though it helped me by pointing out the used basic technologies I still needed quite some time to get it running, partly because there has been a breaking change and partly because the blog post skipped some steps and was missing a github repo to look up the missing information. On getting it to run on my side I was reminded of the "How to draw an owl" meme ([reddit](https://www.reddit.com/r/WebAssembly/comments/6tj8pl/how_can_i_get_wasm_to_run_in_electron_is_there_a/)):       
 ![](https://external-preview.redd.it/DodWFQ9mQkVyWoKFa0ZIu12PYrPo3P2T0taaK-lgJCo.png?auto=webp&amp;s=c180684f48b01ff6f2cbc72e080067039943de07)
 
 So I decided to add a step-by-step guide. I will not go deep into details and focusing more on a reproducible guide to follow through.
