@@ -103,7 +103,7 @@ To verify that our webassembly works, just replace our code in src/App.tsx:
 
 
 ```js
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import icon from '../assets/icon.png';
 import './App.global.css';
@@ -121,10 +121,8 @@ const Hello = () => {
 };
 
 export default function App() {
-  useEffect(() => {
-    import('./simple-webassembly/pkg/simple_webassembly').then((module) =>
+  import('./simple-webassembly/pkg/simple_webassembly').then((module) =>
     module.greet());
-  }
   );
   return (
     <Router>
