@@ -12,8 +12,16 @@ categories: rust webassembly electron
 If you want to start exploring rust and electron, just create a project from my [fork](https://github.com/domtac/electron-react-boilerplate) of the electron_boiler_plate project by clicking   
 [![]({{ site.url }}/assets/UseThisTemplate.png)](https://github.com/domtac/electron-react-boilerplate)
 
+Clone the repo you just created and run the following commands: 
+```sh
+$ yarn
+$ wasm-pack build src/simple-webassembly/
+$ yarn start
+```
 
+And the app will start.
 
+For a more detailed installation guide keep reading ...
 ____
 
 ## Why
@@ -108,7 +116,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import icon from '../assets/icon.png';
 import './App.global.css';
 
-
 const Hello = () => {
   return (
     <div>
@@ -121,9 +128,12 @@ const Hello = () => {
 };
 
 export default function App() {
-  import('./simple-webassembly/pkg/simple_webassembly').then((module) =>
-    module.greet());
-  );
+  import('./simple-webassembly/pkg/simple_webassembly')
+    .then((module) => module.greet())
+    .catch((error) => {
+      console.error(error);
+    });
+
   return (
     <Router>
       <Switch>
@@ -141,5 +151,6 @@ One last time `yarn start` and enjoy the profit:
 ## Conclusion
 Following the above mentioned steps you shall be ready and set to get your rust code running in your electron app. As easy as setting up the the webassembly using wasm-pack was, the process of loading it into electron was somehow counter-intuitive and required some tinkering.
 
-As a next step I will try to get some performance insights comparing native code and webassembly. 
+As a next step I will try to get some performance insights comparing native js code vs. webassembly. 
+
 
