@@ -10,7 +10,7 @@ categories: rust webassembly electron
 ## Quick start
 
 If you want to start exploring rust and electron, just create a project from my [fork](https://github.com/domtac/electron-react-boilerplate) of the electron_boiler_plate project by clicking   
-[![]({{ site.url }}/assets/UseThisTemplate.png)](https://github.com/domtac/electron-react-boilerplate)
+[![]({{ site.url }}/assets/UseThisTemplate.png)](https://github.com/domtac/electron-react-boilerplate/generate)
 
 Clone the repo you just created and run the following commands: 
 ```sh
