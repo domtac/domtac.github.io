@@ -21,7 +21,8 @@ $ yarn start
 
 And the app will start.
 
-For a more detailed installation guide keep reading ...
+For a more detailed installation guide keep reading ...    
+
 ____
 
 ## Why
