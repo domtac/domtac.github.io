@@ -154,5 +154,3 @@ Following the above mentioned steps you shall be ready and set to get your rust 
 
 As a next step I will try to get some performance insights comparing native js code vs. webassembly. 
 
-<img style="width: inherit;" src="http://hits.dwyl.com/domtac.github.io{{ page.url }}.svg" alt="hit count image"/>
-
