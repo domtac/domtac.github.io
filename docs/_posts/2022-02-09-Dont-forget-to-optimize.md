@@ -10,6 +10,9 @@ categories: rust performance python go
 Out of curiosity and while it came up a lot recently I wanted to do a performance comparison between RUST and other languages. On a little bit of googling I did find some other posts doing various comparisons before me. Like [here](https://marshalshi.medium.com/performance-comparison-rust-vs-pyo3-vs-python-6480709be8d) or [here](https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/rust-go.html).  What I noticed was that often the comparison was done with unoptimized rust, e.g. compiled in debug mode.
 On the other hand I wanted to have something to tinker around and try different algorithms in rust, go and python.
 
+> Edit:
+> Someone send me a link to this interessting [paper](https://greenlab.di.uminho.pt/wp-content/uploads/2017/10/sleFinal.pdf) exploring execution time and energy consumption of different programming languages
+
 So I created an unsorted collection to try out some sorting algorithms. The algorithms used here are differnet apporaches to sorting random numbers. 
 So far I have done:
 - [Bubblesort](https://en.wikipedia.org/wiki/Bubble_sort)
